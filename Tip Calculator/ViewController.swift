@@ -21,24 +21,44 @@
         
         @IBOutlet weak var txtFeildLabel: UITextField!
         
+        @IBOutlet weak var TotalLabel: UILabel!
+        
        // MARK: NOTICE
         
     override func viewDidLoad() {
     super.viewDidLoad()
 
         TipLabel.text = "0"
+        txtFeildValue.text = ""
     let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
 
     view.addGestureRecognizer(tap)
     }
+    @IBAction func sliderValueChanged(_ sender: UISlider) {
         
-        
-        @IBAction func sliderValueChanged(_ sender: UISlider) {
+        if(txtFeildValue.text != "")
+        {
             var currentValue = Int(sender.value)
             
-            TipLabel.text = String(currentValue)
+            var feildValue = Int(txtFeildValue.text!)
+        
+            var totaltip = (currentValue * feildValue! / 100)
+
+            TipLabel.text = "$" + String(totaltip)
             
             sliderlabel.text = "Tip(" + String(currentValue) + "%)"
+            
+            var totalAmount = (feildValue! + totaltip)
+            
+                TotalLabel.text = "$" + String(totalAmount)
+        }
+        else {
+            let alertController = UIAlertController(title: "iOScreator", message:
+                "Hello, world!", preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+            
+
+        }
         }
 
     func dismissKeyboard() {
